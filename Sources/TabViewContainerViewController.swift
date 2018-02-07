@@ -49,8 +49,19 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
     public var state: TabViewContainerState {
         didSet {
             switch state {
-            case .single: secondaryTabViewController = nil
-            case .split: secondaryTabViewController = TabViewType.init(theme: self.theme)
+            case .single:
+                secondaryTabViewController = nil
+                setOverrideTraitCollection(nil, forChildViewController: primaryTabViewController)
+            case .split:
+                let secondaryVC = TabViewType.init(theme: self.theme)
+                // Override trait collection to be always compact horizontally, while in split mode
+                let overriddenTraitCollection = UITraitCollection.init(traitsFrom: [
+                    self.traitCollection,
+                    UITraitCollection.init(horizontalSizeClass: .compact)
+                ])
+                setOverrideTraitCollection(overriddenTraitCollection, forChildViewController: primaryTabViewController)
+                setOverrideTraitCollection(overriddenTraitCollection, forChildViewController: secondaryVC)
+                self.secondaryTabViewController = secondaryVC
             }
         }
     }
@@ -116,14 +127,9 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
     open override func viewDidLoad() {
         super.viewDidLoad()
 
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(backgroundView)
-        NSLayoutConstraint.activate([
-            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        backgroundView.frame = stackView.bounds
+        backgroundView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        stackView.addSubview(backgroundView)
 
         // Stack view fills frame
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -151,9 +157,14 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
         view.backgroundColor = theme.barTintColor
 
         backgroundView.backgroundColor = theme.separatorColor
+        setNeedsStatusBarAppearanceUpdate()
 
         primaryTabViewController.theme = theme
         secondaryTabViewController?.theme = theme
+    }
+
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return theme.statusBarStyle
     }
     
 }
@@ -218,7 +229,12 @@ extension TabViewContainerViewController: TabViewContainer {
 
     var contentViewRightInset: CGFloat {
         get { return -(stackViewRightConstraint?.constant ?? 0) }
-        set { stackViewRightConstraint?.constant = -newValue }
+        set {
+            stackViewRightConstraint?.constant = -newValue
+            UIView.animate(withDuration: 0.2) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
     
     var primaryTabViewController: TabViewController {

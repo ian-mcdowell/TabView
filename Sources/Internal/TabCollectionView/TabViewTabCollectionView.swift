@@ -123,7 +123,8 @@ extension TabViewTabCollectionView: UICollectionViewDragDelegate {
 
         // Put the snapshot in an image view and give it to the drag item for previewing
         let imageView = UIImageView(image: snapshot)
-        dragItem.previewProvider = { return UIDragPreview.init(view: imageView, parameters: UIDragPreviewParameters.init()) }
+        let parameters = self.collectionView(collectionView, dragPreviewParametersForItemAt: indexPath)!
+        dragItem.previewProvider = { return UIDragPreview.init(view: imageView, parameters: parameters) }
         return [
             dragItem
         ]
@@ -138,6 +139,13 @@ extension TabViewTabCollectionView: UICollectionViewDragDelegate {
         }
         view.frame = frame
         return image
+    }
+
+    func collectionView(_ collectionView: UICollectionView, dragPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        let parameters = UIDragPreviewParameters()
+        // Since the cell may not have a background color (if it's selected), set one to the background color of the bar
+        parameters.backgroundColor = theme.barTintColor
+        return parameters
     }
 
     func collectionView(_ collectionView: UICollectionView, dragSessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
@@ -167,7 +175,6 @@ extension TabViewTabCollectionView: UICollectionViewDropDelegate {
         else { return }
         oldDelegate.closeTab(viewController)
         barDelegate?.insertTab(viewController, atIndex: destinationIndexPath.item)
-        collectionView.insertItems(at: [destinationIndexPath])
         self.barDelegate?.activateTab(viewController)
     }
 }
@@ -244,12 +251,16 @@ private class TabViewTab: UICollectionViewCell {
         return layoutAttributes
     }
 
+    private var isActive: Bool {
+        return collectionView?.bar?.barDataSource?.visibleViewController == currentTab
+    }
+
     func applyTheme(_ theme: TabViewTheme) {
 
         closeButton.imageView?.tintColor = theme.tabCloseButtonColor
         closeButton.imageView?.backgroundColor = theme.tabCloseButtonBackgroundColor
 
-        if self.isSelected {
+        if isActive {
             self.backgroundColor = nil
             titleView.textColor = theme.tabSelectedTextColor
         } else {
@@ -275,7 +286,7 @@ private class TabViewTab: UICollectionViewCell {
             applyTheme(theme)
         }
 
-        self.closeButton.isHidden = !self.isSelected || self.bounds.size.width < closeButtonSize
+        self.closeButton.isHidden = !self.isActive || self.bounds.size.width < closeButtonSize
 
         titleView.text = self.currentTab?.title
         if !closeButton.isHidden && self.bounds.width - titleView.intrinsicContentSize.width - titleLabelPadding * 2 < closeButtonSize {

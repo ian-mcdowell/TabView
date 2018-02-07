@@ -82,7 +82,7 @@ open class TabViewController: UIViewController {
     /// If in the right side of a split container, then always NO
     public var hidesSingleTab: Bool {
         get {
-            if let container = container, container.secondaryTabViewController == self { return false }
+            if let container = container, container.state == .split { return false }
             return _hidesSingleTab
         }
         set { _hidesSingleTab = newValue }
@@ -145,6 +145,14 @@ open class TabViewController: UIViewController {
         updateVisibleViewControllerInsets()
     }
 
+    open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        // Trait collection may change because of change in container states.
+        // A change in state may invalidate the tab hiding behavior.
+        tabViewBar.hideTabsIfNeeded()
+    }
+
     /// Activates the given tab and saves the new state
     ///
     /// - Parameters:
@@ -187,6 +195,7 @@ open class TabViewController: UIViewController {
             _viewControllers.remove(at: oldIndex)
         }
         _viewControllers.insert(tab, at: index)
+        tabViewBar.addTab(atIndex: index)
     }
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {
