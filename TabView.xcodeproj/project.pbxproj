@@ -21,6 +21,7 @@
 		3C17683D202585920031FEA9 /* TabViewTabCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C17683C202585920031FEA9 /* TabViewTabCollectionView.swift */; };
 		3C17683F202585D80031FEA9 /* UIBarButtonItem+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C17683E202585D80031FEA9 /* UIBarButtonItem+View.swift */; };
 		3C1768422025A33C0031FEA9 /* NavigationItemObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1768412025A33C0031FEA9 /* NavigationItemObserver.swift */; };
+		3C857EB82029626A0082D945 /* TabViewTabCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C857EB72029626A0082D945 /* TabViewTabCollectionViewLayout.swift */; };
 		3C905FBA2025BEB90084BA63 /* NavigationItemObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1768412025A33C0031FEA9 /* NavigationItemObserver.swift */; };
 		3C905FBC2025BEB90084BA63 /* TabViewBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C17683A2025855C0031FEA9 /* TabViewBar.swift */; };
 		3C905FBD2025BEB90084BA63 /* TabViewTabCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C17683C202585920031FEA9 /* TabViewTabCollectionView.swift */; };
@@ -28,6 +29,8 @@
 		3C905FBF2025BEBB0084BA63 /* UIBarButtonItem+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C17683E202585D80031FEA9 /* UIBarButtonItem+View.swift */; };
 		3C905FC02025BEBB0084BA63 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C176835202582F60031FEA9 /* Theme.swift */; };
 		3C905FC12025BEBB0084BA63 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1768312025801E0031FEA9 /* TabViewController.swift */; };
+		3CD4457A202ACFC500DD3CCB /* TabViewContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD44579202ACFC500DD3CCB /* TabViewContainerViewController.swift */; };
+		3CD4457B202ACFC700DD3CCB /* TabViewContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD44579202ACFC500DD3CCB /* TabViewContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +83,9 @@
 		3C17683C202585920031FEA9 /* TabViewTabCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewTabCollectionView.swift; sourceTree = "<group>"; };
 		3C17683E202585D80031FEA9 /* UIBarButtonItem+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+View.swift"; sourceTree = "<group>"; };
 		3C1768412025A33C0031FEA9 /* NavigationItemObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationItemObserver.swift; sourceTree = "<group>"; };
+		3C857EB72029626A0082D945 /* TabViewTabCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewTabCollectionViewLayout.swift; sourceTree = "<group>"; };
 		3C905FB12025BEAF0084BA63 /* liblibTabView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibTabView.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CD44579202ACFC500DD3CCB /* TabViewContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +149,7 @@
 				3C176840202589440031FEA9 /* Internal */,
 				3C176835202582F60031FEA9 /* Theme.swift */,
 				3C1768312025801E0031FEA9 /* TabViewController.swift */,
+				3CD44579202ACFC500DD3CCB /* TabViewContainerViewController.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -174,7 +180,7 @@
 			children = (
 				3C1768432025A3DB0031FEA9 /* Util */,
 				3C17683A2025855C0031FEA9 /* TabViewBar.swift */,
-				3C17683C202585920031FEA9 /* TabViewTabCollectionView.swift */,
+				3C857EB6202962440082D945 /* TabCollectionView */,
 				3C1768372025852A0031FEA9 /* Extension */,
 			);
 			path = Internal;
@@ -186,6 +192,15 @@
 				3C1768412025A33C0031FEA9 /* NavigationItemObserver.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		3C857EB6202962440082D945 /* TabCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				3C17683C202585920031FEA9 /* TabViewTabCollectionView.swift */,
+				3C857EB72029626A0082D945 /* TabViewTabCollectionViewLayout.swift */,
+			);
+			path = TabCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,8 +344,10 @@
 				3C176834202581BE0031FEA9 /* NSLayoutConstraint+Custom.swift in Sources */,
 				3C17683D202585920031FEA9 /* TabViewTabCollectionView.swift in Sources */,
 				3C17683B2025855C0031FEA9 /* TabViewBar.swift in Sources */,
+				3C857EB82029626A0082D945 /* TabViewTabCollectionViewLayout.swift in Sources */,
 				3C1768422025A33C0031FEA9 /* NavigationItemObserver.swift in Sources */,
 				3C1768322025801E0031FEA9 /* TabViewController.swift in Sources */,
+				3CD4457A202ACFC500DD3CCB /* TabViewContainerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CD4457B202ACFC700DD3CCB /* TabViewContainerViewController.swift in Sources */,
 				3C905FC12025BEBB0084BA63 /* TabViewController.swift in Sources */,
 				3C905FBD2025BEB90084BA63 /* TabViewTabCollectionView.swift in Sources */,
 				3C905FBA2025BEB90084BA63 /* NavigationItemObserver.swift in Sources */,
@@ -534,9 +552,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.ianmcdowell.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.ianmcdowell.TabView-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -549,9 +568,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.ianmcdowell.Sample;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.ianmcdowell.TabView-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -16,9 +16,6 @@ class ViewController: TabViewController {
 
         self.title = "Tab View"
 
-        // Hide the tab bar when there are 0 or 1 tabs.
-        self.hidesSingleTab = true
-
         // Set the tabs in this tab view
         self.viewControllers = [
             Tab(title: "White", color: .white),

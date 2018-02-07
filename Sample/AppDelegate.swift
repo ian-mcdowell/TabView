@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = ViewController(theme: TabViewThemeLight())
+        let tabRoot = TabViewContainerViewController<ViewController>.init(theme: TabViewThemeLight())
+        window?.rootViewController = tabRoot
         window?.makeKeyAndVisible()
         
         return true

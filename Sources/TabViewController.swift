@@ -10,6 +10,9 @@ import UIKit
 
 open class TabViewController: UIViewController {
 
+    /// The container that this tab view resides in.
+    internal weak var container: TabViewContainer?
+
     /// Current theme
     public var theme: TabViewTheme {
         didSet { self.applyTheme(theme) }
@@ -73,9 +76,16 @@ open class TabViewController: UIViewController {
         }
     }
 
+    /// Store the value of the below property.
+    private var _hidesSingleTab: Bool = true
     /// Should the tab bar hide when only a single tab is visible? Default: YES
-    public var hidesSingleTab: Bool = true {
-        didSet { tabViewBar.hideTabsIfNeeded() }
+    /// If in the right side of a split container, then always NO
+    public var hidesSingleTab: Bool {
+        get {
+            if let container = container, container.secondaryTabViewController == self { return false }
+            return _hidesSingleTab
+        }
+        set { _hidesSingleTab = newValue }
     }
 
     /// Tab bar shown above the content view
@@ -87,8 +97,12 @@ open class TabViewController: UIViewController {
     private var ownNavigationItemObserver: NavigationItemObserver?
     private var visibleNavigationItemObserver: NavigationItemObserver?
 
+    internal var dragInProgress: Bool = false {
+        didSet { container?.dragStateChanged(in: self, to: dragInProgress) }
+    }
+
     /// Create a new tab view controller, with a theme.
-    public init(theme: TabViewTheme) {
+    public required init(theme: TabViewTheme) {
         self.theme = theme
         self.tabViewBar = TabViewBar(theme: theme)
         self.contentView = UIView()
@@ -158,10 +172,21 @@ open class TabViewController: UIViewController {
                 visibleViewController = _viewControllers[index - 1]
             }
         }
+
+        // If this is the secondary vc in a container, and there are none left,
+        // close this vc by setting the state to single
+        if _viewControllers.isEmpty, let container = container {
+            if container.state == .split && container.secondaryTabViewController == self {
+                container.state = .single
+            }
+        }
     }
 
-    func swapTab(atIndex index: Int, withTabAtIndex atIndex: Int) {
-        _viewControllers.swapAt(index, atIndex)
+    func insertTab(_ tab: UIViewController, atIndex index: Int) {
+        if let oldIndex = _viewControllers.index(of: tab) {
+            _viewControllers.remove(at: oldIndex)
+        }
+        _viewControllers.insert(tab, at: index)
     }
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {
