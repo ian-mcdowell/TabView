@@ -160,6 +160,7 @@ open class TabViewController: UIViewController {
     ///   - saveState: if the new state should be saved
     open func activateTab(_ tab: UIViewController) {
         if !_viewControllers.contains(tab) {
+            tabViewBar.layoutIfNeeded()
             _viewControllers.append(tab)
             tabViewBar.addTab(atIndex: _viewControllers.count - 1)
         }
@@ -171,6 +172,7 @@ open class TabViewController: UIViewController {
     /// - Parameter tab: the tab to close
     open func closeTab(_ tab: UIViewController) {
         if let index = _viewControllers.index(of: tab) {
+            tabViewBar.layoutIfNeeded()
             _viewControllers.remove(at: index)
             tabViewBar.removeTab(atIndex: index)
 
