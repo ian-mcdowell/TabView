@@ -156,24 +156,24 @@ class TabViewBar: UIView {
 
     /// Reset the leading items.
     func setLeadingBarButtonItems(_ barButtonItems: [UIBarButtonItem]) {
-        let views = barButtonItems.map { $0.toView() }
-
-        for view in leadingBarButtonStackView.arrangedSubviews {
-            view.removeFromSuperview()
-        }
-        for view in views {
-            leadingBarButtonStackView.addArrangedSubview(view)
-        }
-    }
-
-    /// Reset the trailing items.
-    func setTrailingBarButtonItems(_ barButtonItems: [UIBarButtonItem]) {
-        let views = barButtonItems.map { $0.toView() }
-
         for view in trailingBarButtonStackView.arrangedSubviews {
             view.removeFromSuperview()
         }
-        for view in views {
+        for barButtonItem in barButtonItems {
+            let view = barButtonItem.toView()
+            view.tintColor = barButtonItem.tintColor
+            trailingBarButtonStackView.addArrangedSubview(view)
+        }
+    }
+    
+    /// Reset the trailing items.
+    func setTrailingBarButtonItems(_ barButtonItems: [UIBarButtonItem]) {
+        for view in trailingBarButtonStackView.arrangedSubviews {
+            view.removeFromSuperview()
+        }
+        for barButtonItem in barButtonItems {
+            let view = barButtonItem.toView()
+            view.tintColor = barButtonItem.tintColor
             trailingBarButtonStackView.addArrangedSubview(view)
         }
     }
