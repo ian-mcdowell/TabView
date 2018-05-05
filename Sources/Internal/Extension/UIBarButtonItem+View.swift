@@ -37,6 +37,7 @@ private class UIBarButtonItemView: UIButton {
         self.imageView?.contentMode = .scaleAspectFit
         setTitle(item.title, for: .normal)
         setImage(item.image, for: .normal)
+        self.tintColor = item.tintColor
         if let target = item.target, let action = item.action {
             addTarget(target, action: action, for: .touchUpInside)
         }
