@@ -123,6 +123,7 @@
 				3C17680A20257F630031FEA9 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		3C17680A20257F630031FEA9 /* Products */ = {
 			isa = PBXGroup;
