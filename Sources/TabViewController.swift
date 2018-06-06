@@ -186,7 +186,7 @@ open class TabViewController: UIViewController {
         // If this is the secondary vc in a container, and there are none left,
         // close this vc by setting the state to single
         if _viewControllers.isEmpty, let container = container {
-            if container.state == .split && container.secondaryTabViewController == self {
+            if container.state == .split && container.secondary == self {
                 container.state = .single
             }
         }
