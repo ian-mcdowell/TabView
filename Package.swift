@@ -22,9 +22,9 @@ let package = Package(
             dependencies: [],
             path: "Sources"
             ),
-        .testTarget(
-            name: "TabViewTests",
-            dependencies: ["TabView"],
-            path: "Tests/TabViewTests"),
+        // .testTarget(
+        //     name: "TabViewTests",
+        //     dependencies: ["TabView"],
+        //     path: "Tests/TabViewTests"),
     ]
 )
