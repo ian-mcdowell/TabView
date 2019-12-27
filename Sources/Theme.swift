@@ -25,7 +25,7 @@ public protocol TabViewTheme {
     var barTintColor: UIColor { get }
 
     /// The style of blur to apply to the tab bar.
-    var barBlurStyle: UIBlurEffectStyle { get }
+    var barBlurStyle: UIBlurEffect.Style { get }
 
     /// Color for separator lines that appear between tabs and underneath tabs.
     var separatorColor: UIColor { get }
@@ -57,7 +57,7 @@ open class TabViewThemeLight: TabViewTheme {
     public var backgroundColor: UIColor = .lightGray
     public var barTitleColor: UIColor = .black
     public var barTintColor: UIColor = .init(white: 1, alpha: 1)
-    public var barBlurStyle: UIBlurEffectStyle = .light
+    public var barBlurStyle: UIBlurEffect.Style = .light
     public var separatorColor: UIColor = .init(white: 0.7, alpha: 1)
     public var tabCloseButtonColor: UIColor = .white
     public var tabCloseButtonBackgroundColor: UIColor = .init(white: 175/255, alpha: 1)
@@ -74,7 +74,7 @@ open class TabViewThemeDark: TabViewTheme {
     public var backgroundColor: UIColor = .darkGray
     public var barTitleColor: UIColor = .white
     public var barTintColor: UIColor = .init(white: 0.2, alpha: 1)
-    public var barBlurStyle: UIBlurEffectStyle = .dark
+    public var barBlurStyle: UIBlurEffect.Style = .dark
     public var separatorColor: UIColor = .init(white: 0.15, alpha: 1)
     public var tabCloseButtonColor: UIColor = .init(white: 50/255, alpha: 1)
     public var tabCloseButtonBackgroundColor: UIColor = .init(white: 0.8, alpha: 1)

@@ -231,7 +231,7 @@ class TabViewBar: UIView {
         updateTitles()
         hideTabsIfNeeded()
         
-        if let visibleVC = barDataSource?.visibleViewController, let index = barDataSource?.viewControllers.index(of: visibleVC) {
+        if let visibleVC = barDataSource?.visibleViewController, let index = barDataSource?.viewControllers.firstIndex(of: visibleVC) {
             self.selectTab(atIndex: index)
         }
     }
