@@ -20,8 +20,11 @@ let package = Package(
         .target(
             name: "TabView",
             dependencies: [],
-            path: "Sources"
+            // this manually specifies the path to not break the code with the existing project files but it generates a warning
+            // ToDo: Check the warning and find a way to silence it 
+            path: "Sources" 
             ),
+        // ToDo: Add Tests, fix error and uncomment lines below
         // .testTarget(
         //     name: "TabViewTests",
         //     dependencies: ["TabView"],
