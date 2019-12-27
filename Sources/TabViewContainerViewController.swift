@@ -51,7 +51,7 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
             switch state {
             case .single:
                 secondaryTabViewController = nil
-                setOverrideTraitCollection(nil, forChildViewController: primaryTabViewController)
+                setOverrideTraitCollection(nil, forChild: primaryTabViewController)
             case .split:
                 let secondaryVC = TabViewType.init(theme: self.theme)
                 // Override trait collection to be always compact horizontally, while in split mode
@@ -59,8 +59,8 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
                     self.traitCollection,
                     UITraitCollection.init(horizontalSizeClass: .compact)
                 ])
-                setOverrideTraitCollection(overriddenTraitCollection, forChildViewController: primaryTabViewController)
-                setOverrideTraitCollection(overriddenTraitCollection, forChildViewController: secondaryVC)
+                setOverrideTraitCollection(overriddenTraitCollection, forChild: primaryTabViewController)
+                setOverrideTraitCollection(overriddenTraitCollection, forChild: secondaryVC)
                 self.secondaryTabViewController = secondaryVC
             }
         }
@@ -86,13 +86,13 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
     public private(set) var secondaryTabViewController: TabViewType? {
         didSet {
             oldValue?.view.removeFromSuperview()
-            oldValue?.removeFromParentViewController()
+            oldValue?.removeFromParent()
 
             if let newValue = secondaryTabViewController {
                 newValue.container = self
-                addChildViewController(newValue)
+                addChild(newValue)
                 stackView.addArrangedSubview(newValue.view)
-                newValue.didMove(toParentViewController: self)
+                newValue.didMove(toParent: self)
             }
         }
     }
@@ -119,7 +119,7 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
 
         dropView.container = self
         primaryTabViewController.container = self
-        addChildViewController(primaryTabViewController)
+        addChild(primaryTabViewController)
     }
 
     public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -148,7 +148,7 @@ open class TabViewContainerViewController<TabViewType: TabViewController>: UIVie
         stackView.alignment = .fill
         stackView.spacing = 0.5
         stackView.insertArrangedSubview(primaryTabViewController.view, at: 0)
-        primaryTabViewController.didMove(toParentViewController: self)
+        primaryTabViewController.didMove(toParent: self)
 
         applyTheme(theme)
     }

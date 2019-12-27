@@ -35,7 +35,7 @@ class TabViewTabCollectionView: UICollectionView {
         self.backgroundColor = nil
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
-        self.decelerationRate = UIScrollViewDecelerationRateFast
+        self.decelerationRate = UIScrollView.DecelerationRate.fast
         self.allowsMultipleSelection = false
 
         // Enable drag and drop
@@ -56,7 +56,7 @@ class TabViewTabCollectionView: UICollectionView {
     /// Calls `update` for each visible cell.
     /// Useful to update title and such without affecting selection state
     func updateVisibleTabs() {
-        for cell in self.visibleCells.flatMap({ $0 as? TabViewTab }) {
+        for cell in self.visibleCells.compactMap({ $0 as? TabViewTab }) {
             cell.update()
         }
     }

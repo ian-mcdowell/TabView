@@ -26,15 +26,15 @@ open class TabViewController: UIViewController {
     /// The current tab shown in the tab view controller's content view
     public var visibleViewController: UIViewController? {
         didSet {
-            oldValue?.removeFromParentViewController()
+            oldValue?.removeFromParent()
             oldValue?.view.removeFromSuperview()
 
             if let visibleViewController = visibleViewController {
-                addChildViewController(visibleViewController)
+                addChild(visibleViewController)
                 visibleViewController.view.frame = contentView.bounds
                 contentView.addSubview(visibleViewController.view)
                 visibleViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                visibleViewController.didMove(toParentViewController: self)
+                visibleViewController.didMove(toParent: self)
             }
             updateVisibleViewControllerInsets()
             
@@ -45,7 +45,7 @@ open class TabViewController: UIViewController {
             } else {
                 visibleNavigationItemObserver = nil
             }
-            if let newValue = visibleViewController, let index = viewControllers.index(of: newValue) {
+            if let newValue = visibleViewController, let index = viewControllers.firstIndex(of: newValue) {
                 tabViewBar.selectTab(atIndex: index)
             }
             refreshTabBar()
@@ -171,7 +171,7 @@ open class TabViewController: UIViewController {
     ///
     /// - Parameter tab: the tab to close
     open func closeTab(_ tab: UIViewController) {
-        if let index = _viewControllers.index(of: tab) {
+        if let index = _viewControllers.firstIndex(of: tab) {
             tabViewBar.layoutIfNeeded()
             _viewControllers.remove(at: index)
             tabViewBar.removeTab(atIndex: index)
@@ -193,7 +193,7 @@ open class TabViewController: UIViewController {
     }
 
     func insertTab(_ tab: UIViewController, atIndex index: Int) {
-        if let oldIndex = _viewControllers.index(of: tab) {
+        if let oldIndex = _viewControllers.firstIndex(of: tab) {
             _viewControllers.remove(at: oldIndex)
         }
         _viewControllers.insert(tab, at: index)

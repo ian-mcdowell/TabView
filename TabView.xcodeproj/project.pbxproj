@@ -284,7 +284,7 @@
 				TargetAttributes = {
 					3C17680820257F630031FEA9 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1130;
 						ProvisioningStyle = Automatic;
 					};
 					3C17681820257F910031FEA9 = {
@@ -532,6 +532,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.ianmcdowell.TabView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -548,6 +549,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.ianmcdowell.TabView;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
